@@ -1,0 +1,102 @@
+# Project Recreation Guide: Drawing Book
+
+This document contains all the details, credentials, and instructions needed to recreate the **Drawing Book** application.
+
+## 1. Project Overview
+- **Name**: Drawing Book
+- **Type**: Single Page Application (SPA) / Progressive Web App (PWA)
+- **Tech Stack**: React (Vite), Tailwind CSS, Framer Motion, React PageFlip.
+- **Backend Service**: Dropbox API (for storage).
+
+## 2. Credentials (Dropbox)
+These are the specific credentials configured for this application's storage.
+
+| Key | Value |
+| :--- | :--- |
+| **App Key** | `3b2fltt1sr1ih89` |
+| **App Secret** | `3run92qh2bhdgtm` |
+| **Refresh Token** | `PGPISHoapIsAAAAAAAAAAc_Fy6Pu8zr7yMo73Tn19C_5Kg4606qv3BbGzulByGWE` |
+
+> [!CAUTION]
+> These credentials allow full access to the linked Dropbox app folder. Do not share them publicly on GitHub or other platforms.
+
+## 3. Key Configurations
+
+### Dependencies ([package.json](file:///c:/Users/praveen/Desktop/web%20site/drawing-book/package.json))
+Ensure you install these specific packages:
+```json
+"dependencies": {
+  "dropbox": "^10.34.0",
+  "framer-motion": "^11.0.3",
+  "react": "^18.2.0",
+  "react-dom": "^18.2.0",
+  "react-icons": "^5.0.1",
+  "react-pageflip": "^2.0.3",
+  "vite-plugin-pwa": "^0.19.2"
+}
+```
+
+### Dropbox Service ([src/services/dropboxService.js](file:///c:/Users/praveen/Desktop/web%20site/drawing-book/src/services/dropboxService.js))
+Use this code to connect to the account using the credentials above.
+
+```javascript
+import { Dropbox } from 'dropbox';
+
+const APP_KEY = '3b2fltt1sr1ih89';
+const APP_SECRET = '3run92qh2bhdgtm';
+const REFRESH_TOKEN = 'PGPISHoapIsAAAAAAAAAAc_Fy6Pu8zr7yMo73Tn19C_5Kg4606qv3BbGzulByGWE';
+
+const dbx = new Dropbox({
+  clientId: APP_KEY,
+  clientSecret: APP_SECRET,
+  refreshToken: REFRESH_TOKEN,
+});
+
+export const listImagesFromDropbox = async () => { /* ... implementation ... */ };
+export const uploadImageToDropbox = async (file, name) => { /* ... implementation ... */ };
+export const deleteImageFromDropbox = async (id) => { /* ... implementation ... */ };
+```
+
+## 4. Troubleshooting Git Push
+If you see an error like `! [rejected] main -> main (fetch first)`, it means your GitHub repository has a file (like a README) that isn't on your computer yet.
+
+**To Fix It:**
+Run this command in your terminal to pull the remote changes and merge them:
+```bash
+git pull origin main --rebase
+```
+Then push again:
+
+## 5. Application Workflow
+
+This is how the application is designed to function from a user's perspective:
+
+### Phase 1: Authentication
+1.  **Entry**: User loads the site and sees a locked, cinematic screen.
+2.  **Action**: User enters the passkey: `L.K art`.
+3.  **Result**: 
+    - *Success*: A smooth unlock animation plays, revealing the book.
+    - *Failure*: The input shakes, denying access.
+
+### Phase 2: The Viewing Experience (The Book)
+1.  **Interface**: A realistic digital book appears on a wooden/dark desk background.
+2.  **Interaction**: 
+    - Users can drag pages or click corners to flip them.
+    - Each page displays one artwork fetched from Dropbox.
+    - The artwork name is elegantly displayed at the bottom.
+
+### Phase 3: Management (Gallery & Upload)
+1.  **Gallery Mode**:
+    - Clicking the "Grid" icon opens a full-screen gallery.
+    - Users can download original files or delete unwanted art (which removes it from Dropbox).
+2.  **Publishing Art**:
+    - Clicking the "+" (FAB) button opens the Upload Modal.
+    - User selects an image and types a custom name.
+    - Clicking "Publish" uploads the file to the connected Dropbox folder.
+    - The new page is automatically added to the book.
+
+### Phase 4: Mobile Experience (PWA)
+- The site can be installed as an app.
+- It launches with the custom "L.K Arts" splash screen.
+- It operates in full-screen mode without browser bars.
+
