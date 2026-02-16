@@ -47,7 +47,7 @@ const AuthGate = ({ onLogin }) => {
                         transition={{ delay: 0.3, duration: 0.8, type: "spring", stiffness: 100 }}
                         className="relative flex flex-col items-center gap-4"
                     >
-                        <img src="./logo.png" alt="L.K ARTS Logo" className="w-16 h-16 sm:w-20 sm:h-20 object-contain drop-shadow-[0_0_12px_rgba(185,28,28,0.5)]" />
+                        <img src="/logo.png" alt="L.K ARTS Logo" className="w-16 h-16 sm:w-20 sm:h-20 object-contain drop-shadow-[0_0_12px_rgba(185,28,28,0.5)]" />
                         <h1 className="text-3xl sm:text-4xl font-bold tracking-wider red-text text-center relative z-10">
                             L.K ARTS
                         </h1>
@@ -88,23 +88,20 @@ const AuthGate = ({ onLogin }) => {
                                 onChange={(e) => setPassword(e.target.value)}
                                 disabled={isLoading || isSuccess}
                                 className={`w-full pl-12 pr-12 py-4 bg-[#1a1a1a]/50 border-2 rounded-xl text-center tracking-[0.2em] text-lg focus:outline-none focus:bg-[#1a1a1a]/70 transition-all duration-300 placeholder:text-[#dc2626]/40 placeholder:tracking-normal placeholder:text-sm ${isSuccess
-                                        ? "border-green-500/70 text-green-400 bg-green-900/20 shadow-[0_0_20px_rgba(72,187,120,0.3)]"
-                                        : "border-[#b91c1c]/40 text-[#dc2626] focus:border-[#dc2626]"
+                                    ? "border-green-500/70 text-green-400 bg-green-900/20 shadow-[0_0_20px_rgba(72,187,120,0.3)]"
+                                    : "border-[#b91c1c]/40 text-[#dc2626] focus:border-[#dc2626]"
                                     }`}
-                                style={!isSuccess && password ? {
-                                    animation: 'borderGlow 2s ease-in-out infinite'
-                                } : {}}
                                 animate={error ? {
                                     x: [-15, 15, -15, 15, 0]
                                 } : {}}
                                 transition={{ type: "spring", stiffness: 400, damping: 15 }}
                             />
 
-                            {/* Animated glowing border overlay */}
+                            {/* Animated glowing border overlay - attracts attention when idle */}
                             {!isSuccess && (
                                 <div className="absolute inset-0 rounded-xl pointer-events-none">
                                     <div
-                                        className="absolute inset-0 rounded-xl border-2 border-[#dc2626] opacity-0 group-focus-within:opacity-100 transition-opacity duration-300"
+                                        className="absolute inset-0 rounded-xl border-2 border-[#dc2626] opacity-100 group-focus-within:opacity-0 transition-opacity duration-300"
                                         style={{
                                             animation: 'borderGlow 2s ease-in-out infinite',
                                             filter: 'blur(2px)'

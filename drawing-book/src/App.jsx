@@ -85,18 +85,18 @@ function App() {
 
       {/* Enhanced Top Navigation Bar with Logo */}
       <nav className="fixed top-0 left-0 right-0 z-40 p-3 sm:p-4 flex justify-between items-center pointer-events-none">
-        <motion.div 
+        <motion.div
           className="pointer-events-auto bg-gradient-to-r from-[#1a1a1a]/80 to-[#0f0f0f]/60 backdrop-blur-xl px-4 py-2 rounded-xl border border-[#b91c1c]/40 shadow-[0_0_20px_rgba(185,28,28,0.25)] glow flex items-center gap-3"
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <img src="./logo.png" alt="L.K ARTS Logo" className="w-8 h-8 sm:w-10 sm:h-10 object-contain" />
+          <img src="/logo.png" alt="L.K ARTS Logo" className="w-8 h-8 sm:w-10 sm:h-10 object-contain" />
           <h1 className="text-lg sm:text-xl tracking-wider font-bold red-text">
             L.K ARTS
           </h1>
         </motion.div>
-        
+
         <motion.div
           className="pointer-events-auto bg-gradient-to-r from-[#1a1a1a]/70 to-[#0f0f0f]/50 backdrop-blur-xl px-3 py-2 rounded-xl border border-[#b91c1c]/30 shadow-[0_0_15px_rgba(185,28,28,0.2)] dark-glow"
           initial={{ opacity: 0, x: 20 }}
