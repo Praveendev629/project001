@@ -83,43 +83,43 @@ const Book = ({ images }) => {
 
                         <div className="relative z-20 flex flex-col items-center p-6 sm:p-8 text-center">
                             <motion.h1 
-                                className="text-4xl sm:text-6xl font-serif text-[#dc2626] tracking-widest uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] text-red-glow font-bold"
+                                className="text-4xl sm:text-6xl font-serif text-amber-400 tracking-widest uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] font-bold"
                                 initial={{ opacity: 0, y: 30, scale: 0.8 }}
                                 animate={{ opacity: 1, y: 0, scale: 1 }}
                                 transition={{ duration: 1, delay: 0.3, type: "spring", stiffness: 100 }}
                                 whileHover={{ 
                                     scale: 1.05,
-                                    textShadow: "0 0 20px rgba(185,28,28,0.8)"
+                                    textShadow: "0 0 25px rgba(245,158,11,0.9)"
                                 }}
                             >
                                 Drawing<br />Book
                             </motion.h1>
                             <motion.div 
-                                className="w-16 sm:w-24 h-1 bg-gradient-to-r from-[#b91c1c] to-[#7f1d1d] my-6 sm:my-8 rounded-full shadow-[0_0_12px_rgba(185,28,28,0.5)]"
+                                className="w-16 sm:w-24 h-1 bg-gradient-to-r from-amber-500 to-amber-700 my-6 sm:my-8 rounded-full shadow-[0_0_15px_rgba(245,158,11,0.6)]"
                                 initial={{ width: 0, opacity: 0 }}
                                 animate={{ width: "w-16 sm:w-24", opacity: 1 }}
                                 transition={{ duration: 1, delay: 0.6 }}
                             ></motion.div>
                             <motion.p 
-                                className="text-lg sm:text-xl text-[#dc2626] tracking-[0.3em] font-bold opacity-90 uppercase drop-shadow-[0_0_8px_rgba(185,28,28,0.3)]"
+                                className="text-lg sm:text-xl text-amber-300 tracking-[0.3em] font-bold opacity-90 uppercase drop-shadow-[0_0_12px_rgba(245,158,11,0.4)]"
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.8, delay: 0.9 }}
                                 whileHover={{ 
                                     scale: 1.05,
-                                    textShadow: "0 0 12px rgba(185,28,28,0.5)"
+                                    textShadow: "0 0 15px rgba(245,158,11,0.6)"
                                 }}
                             >
                                 L.K ARTS
                             </motion.p>
                             <motion.p 
-                                className="mt-10 sm:mt-20 text-[#dc2626] text-xs tracking-widest font-medium italic"
+                                className="mt-10 sm:mt-20 text-amber-200 text-xs tracking-widest font-medium italic drop-shadow-[0_0_8px_rgba(245,158,11,0.3)]"
                                 initial={{ opacity: 0 }}
-                                animate={{ opacity: 0.7 }}
+                                animate={{ opacity: 0.8 }}
                                 transition={{ duration: 1, delay: 1.2 }}
                                 whileHover={{ 
                                     opacity: 1,
-                                    textShadow: "0 0 8px rgba(185,28,28,0.4)"
+                                    textShadow: "0 0 12px rgba(245,158,11,0.5)"
                                 }}
                             >
                                 PRIVATE COLLECTION
@@ -147,15 +147,17 @@ const Book = ({ images }) => {
                             {/* Enhanced Footer with Animations */}
                             <div className="h-16 flex items-center justify-center relative z-10">
                                 <motion.span 
-                                    className="font-serif italic text-[#b91c1c] text-sm tracking-widest border-t border-[#b91c1c]/30 pt-2 px-8 font-medium drop-shadow-[0_0_8px_rgba(185,28,28,0.3)]"
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.6, delay: 0.3 }}
+                                    className="font-serif italic text-amber-500 text-sm tracking-widest border-t border-amber-500/40 pt-2 px-8 font-bold drop-shadow-[0_0_12px_rgba(245,158,11,0.6)]"
+                                    initial={{ opacity: 0, y: 15, scale: 0.9 }}
+                                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                                    transition={{ duration: 0.8, delay: 0.4, type: "spring", stiffness: 100 }}
                                     whileHover={{ 
-                                        scale: 1.05,
-                                        textShadow: "0 0 12px rgba(185,28,28,0.5)",
-                                        borderColor: "#b91c1c"
+                                        scale: 1.1,
+                                        textShadow: "0 0 20px rgba(245,158,11,0.8)",
+                                        borderColor: "rgba(245,158,11,0.7)",
+                                        y: -2
                                     }}
+                                    whileTap={{ scale: 0.95 }}
                                 >
                                     {formatName(img.name)}
                                 </motion.span>
@@ -168,27 +170,28 @@ const Book = ({ images }) => {
                         <div className="absolute inset-0 opacity-50 bg-[url('https://www.transparenttextures.com/patterns/cream-paper.png')]"></div>
                         <div className="text-center relative z-10">
                             <motion.h2 
-                                className="text-4xl font-serif text-[#b91c1c] italic mb-4 font-bold drop-shadow-[0_0_10px_rgba(185,28,28,0.4)]"
+                                className="text-4xl font-serif text-amber-400 italic mb-4 font-bold drop-shadow-[0_0_15px_rgba(245,158,11,0.6)]"
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ duration: 0.8, delay: 0.2 }}
                                 whileHover={{ 
-                                    scale: 1.1,
-                                    textShadow: "0 0 15px rgba(185,28,28,0.6)"
+                                    scale: 1.15,
+                                    textShadow: "0 0 25px rgba(245,158,11,0.8)"
                                 }}
                             >
                                 Fin
                             </motion.h2>
                             <motion.button
                                 onClick={() => bookRef.current.pageFlip().flip(0)}
-                                className="text-xs uppercase tracking-widest text-[#7f1d1d] hover:text-[#b91c1c] transition-colors border-b border-[#7f1d1d] pb-1 font-medium"
+                                className="text-xs uppercase tracking-widest text-amber-600 hover:text-amber-400 transition-colors border-b border-amber-600 pb-1 font-bold"
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ duration: 0.6, delay: 0.5 }}
                                 whileHover={{ 
-                                    scale: 1.05,
-                                    borderColor: "#b91c1c",
-                                    textShadow: "0 0 8px rgba(185,28,28,0.3)"
+                                    scale: 1.1,
+                                    borderColor: "rgba(245,158,11,0.8)",
+                                    textShadow: "0 0 12px rgba(245,158,11,0.5)",
+                                    y: -1
                                 }}
                                 whileTap={{ scale: 0.95 }}
                             >
