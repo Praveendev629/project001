@@ -7,7 +7,6 @@ import AuthGate from './components/AuthGate';
 import Book from './components/Book';
 import Gallery from './components/Gallery';
 import UploadModal from './components/UploadModal';
-import InteractiveBackground from './components/InteractiveBackground';
 
 import { listImagesFromDropbox, uploadImageToDropbox, deleteImageFromDropbox } from './services/dropboxService';
 
@@ -73,8 +72,7 @@ function App() {
 
   if (!isAuthenticated) {
     return (
-      <div className="relative min-h-screen bg-app-black text-app-gold font-sans overflow-hidden">
-        <InteractiveBackground />
+      <div className="relative min-h-screen bg-gradient-to-br from-[#000000] via-[#0d0d0d] to-[#1a1a1a] text-[#ffffff] font-sans overflow-hidden">
         <div className="relative z-10">
           <AuthGate onLogin={handleLogin} />
         </div>
@@ -83,18 +81,34 @@ function App() {
   }
 
   return (
-    <div className="relative min-h-screen bg-app-black text-app-gold font-sans overflow-hidden">
-      <InteractiveBackground />
+    <div className="relative min-h-screen bg-gradient-to-br from-[#000000] via-[#0d0d0d] to-[#1a1a1a] text-[#ffffff] font-sans overflow-hidden">
 
-      {/* Top Bar - Minimalist Brand */}
-      <nav className="fixed top-0 left-0 right-0 z-40 p-6 flex justify-center items-center pointer-events-none">
-        <div className="pointer-events-auto bg-black/30 backdrop-blur-md px-6 py-2 rounded-full border border-app-gold/20 shadow-lg shadow-app-gold/5">
-          <h1 className="text-2xl tracking-[0.2em] font-light text-gold-glow">L.K ARTS</h1>
-        </div>
+      {/* Enhanced Top Navigation Bar with Logo */}
+      <nav className="fixed top-0 left-0 right-0 z-40 p-3 sm:p-4 flex justify-between items-center pointer-events-none">
+        <motion.div 
+          className="pointer-events-auto bg-gradient-to-r from-[#1a1a1a]/80 to-[#0f0f0f]/60 backdrop-blur-xl px-4 py-2 rounded-xl border border-[#b91c1c]/40 shadow-[0_0_20px_rgba(185,28,28,0.25)] glow flex items-center gap-3"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          <img src="/logo.png" alt="L.K ARTS Logo" className="w-8 h-8 sm:w-10 sm:h-10 object-contain" />
+          <h1 className="text-lg sm:text-xl tracking-wider font-bold red-text">
+            L.K ARTS
+          </h1>
+        </motion.div>
+        
+        <motion.div
+          className="pointer-events-auto bg-gradient-to-r from-[#1a1a1a]/70 to-[#0f0f0f]/50 backdrop-blur-xl px-3 py-2 rounded-xl border border-[#b91c1c]/30 shadow-[0_0_15px_rgba(185,28,28,0.2)] dark-glow"
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
+          <div className="w-3 h-3 bg-gradient-to-r from-[#b91c1c] to-[#7f1d1d] rounded-full animate-pulse-red"></div>
+        </motion.div>
       </nav>
 
-      {/* Main Content Area */}
-      <main className="absolute inset-0 z-10 flex flex-col pt-24 pb-24 px-4 overflow-hidden">
+      {/* Enhanced Main Content Area */}
+      <main className="absolute inset-0 z-10 flex flex-col pt-20 sm:pt-24 pb-24 px-3 sm:px-4 overflow-hidden">
         <AnimatePresence mode="wait">
           {view === 'book' ? (
             <motion.div
@@ -111,7 +125,7 @@ function App() {
                   <p className="text-sm tracking-widest opacity-70 animate-pulse">LOADING ARTWORK</p>
                 </div>
               ) : (
-                <div className="w-full max-w-6xl h-[80vh] md:h-[85vh]">
+                <div className="w-full max-w-6xl h-[75vh] sm:h-[80vh] md:h-[85vh] mx-auto px-2">
                   <Book images={images} />
                 </div>
               )}
@@ -131,7 +145,7 @@ function App() {
                   <p className="text-sm tracking-widest opacity-70 animate-pulse">LOADING GALLERY</p>
                 </div>
               ) : (
-                <div className="container mx-auto">
+                <div className="container mx-auto px-2 sm:px-4">
                   <Gallery images={images} onDelete={handleDelete} />
                 </div>
               )}
