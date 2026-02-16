@@ -16,8 +16,8 @@ export default defineConfig(({ command }) => ({
         name: 'Drawing Book',
         short_name: 'L.K Arts',
         description: 'A digital drawing book with a realistic flipbook experience.',
-        theme_color: '#1a1a1a',
-        background_color: '#1a1a1a',
+        theme_color: '#0f0f0f',
+        background_color: '#000000',
         display: 'standalone',
         icons: [
           {
