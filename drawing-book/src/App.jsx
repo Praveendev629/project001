@@ -91,7 +91,7 @@ function App() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <img src="/logo.png" alt="L.K ARTS Logo" className="w-8 h-8 sm:w-10 sm:h-10 object-contain" />
+          <img src="./logo.png" alt="L.K ARTS Logo" className="w-8 h-8 sm:w-10 sm:h-10 object-contain" />
           <h1 className="text-lg sm:text-xl tracking-wider font-bold red-text">
             L.K ARTS
           </h1>
