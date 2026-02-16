@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaBookOpen, FaThLarge, FaPlus } from 'react-icons/fa';
+import { FaBookOpen, FaThLarge, FaPlus, FaCamera } from 'react-icons/fa';
 import './App.css';
 
 import AuthGate from './components/AuthGate';
 import Book from './components/Book';
 import Gallery from './components/Gallery';
 import UploadModal from './components/UploadModal';
+import InteractiveBackground from './components/InteractiveBackground';
 
 import { listImagesFromDropbox, uploadImageToDropbox, deleteImageFromDropbox } from './services/dropboxService';
 
@@ -17,13 +18,13 @@ function App() {
   const [isUploadOpen, setIsUploadOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  // Load authentication state from session storage
-  useEffect(() => {
-    const auth = sessionStorage.getItem('isAuthenticated');
-    if (auth === 'true') {
-      setIsAuthenticated(true);
-    }
-  }, []);
+  // Load authentication state
+  // useEffect(() => {
+  //   const auth = sessionStorage.getItem('isAuthenticated');
+  //   if (auth === 'true') {
+  //     setIsAuthenticated(true);
+  //   }
+  // }, []);
 
   // Fetch images when authenticated
   useEffect(() => {
@@ -46,7 +47,7 @@ function App() {
 
   const handleLogin = () => {
     setIsAuthenticated(true);
-    sessionStorage.setItem('isAuthenticated', 'true');
+    // sessionStorage.setItem('isAuthenticated', 'true'); // Removed to require login on refresh
   };
 
   const handleUpload = async (file, name) => {
@@ -71,83 +72,126 @@ function App() {
   };
 
   if (!isAuthenticated) {
-    return <AuthGate onLogin={handleLogin} />;
+    return (
+      <div className="relative min-h-screen bg-app-black text-app-gold font-sans overflow-hidden">
+        <InteractiveBackground />
+        <div className="relative z-10">
+          <AuthGate onLogin={handleLogin} />
+        </div>
+      </div>
+    );
   }
 
   return (
-    <div className="min-h-screen bg-[#1a1a1a] text-white relative font-sans">
-      {/* Navbar / Controls */}
-      <nav className="fixed top-0 left-0 right-0 z-40 p-4 flex justify-between items-center bg-gradient-to-b from-black/80 to-transparent pointer-events-none">
-        <div className="pointer-events-auto">
-          <h1 className="text-xl tracking-widest font-light opacity-80 pl-4">L.K ARTS</h1>
-        </div>
+    <div className="relative min-h-screen bg-app-black text-app-gold font-sans overflow-hidden">
+      <InteractiveBackground />
 
-        <div className="flex gap-4 pointer-events-auto bg-black/40 backdrop-blur-md p-2 rounded-full border border-white/10">
-          <button
-            onClick={() => setView('book')}
-            className={`p-3 rounded-full transition-all ${view === 'book' ? 'bg-white text-black shadow-[0_0_15px_rgba(255,255,255,0.3)]' : 'text-gray-400 hover:text-white'}`}
-          >
-            <FaBookOpen size={20} />
-          </button>
-          <button
-            onClick={() => setView('gallery')}
-            className={`p-3 rounded-full transition-all ${view === 'gallery' ? 'bg-white text-black shadow-[0_0_15px_rgba(255,255,255,0.3)]' : 'text-gray-400 hover:text-white'}`}
-          >
-            <FaThLarge size={20} />
-          </button>
+      {/* Top Bar - Minimalist Brand */}
+      <nav className="fixed top-0 left-0 right-0 z-40 p-6 flex justify-center items-center pointer-events-none">
+        <div className="pointer-events-auto bg-black/30 backdrop-blur-md px-6 py-2 rounded-full border border-app-gold/20 shadow-lg shadow-app-gold/5">
+          <h1 className="text-2xl tracking-[0.2em] font-light text-gold-glow">L.K ARTS</h1>
         </div>
       </nav>
 
-      {/* Main Content */}
-      <main className="h-screen w-full overflow-hidden">
+      {/* Main Content Area */}
+      <main className="absolute inset-0 z-10 flex flex-col pt-24 pb-24 px-4 overflow-hidden">
         <AnimatePresence mode="wait">
           {view === 'book' ? (
             <motion.div
               key="book"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 1.05 }}
-              transition={{ duration: 0.5 }}
-              className="h-full w-full"
+              initial={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
+              animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+              exit={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="h-full w-full flex items-center justify-center"
             >
               {loading ? (
-                <div className="h-full flex items-center justify-center">
-                  <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-white"></div>
+                <div className="flex flex-col items-center gap-4">
+                  <div className="w-16 h-16 border-4 border-app-gold/30 border-t-app-gold rounded-full animate-spin"></div>
+                  <p className="text-sm tracking-widest opacity-70 animate-pulse">LOADING ARTWORK</p>
                 </div>
               ) : (
-                <Book images={images} />
+                <div className="w-full max-w-6xl h-[80vh] md:h-[85vh]">
+                  <Book images={images} />
+                </div>
               )}
             </motion.div>
           ) : (
             <motion.div
               key="gallery"
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5 }}
-              className="h-full w-full overflow-y-auto pt-20"
+              exit={{ opacity: 0, y: -50 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              className="h-full w-full overflow-y-auto no-scrollbar pb-20"
             >
               {loading ? (
-                <div className="h-full flex items-center justify-center">
-                  <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-white"></div>
+                <div className="flex flex-col items-center justify-center h-full gap-4">
+                  <div className="w-16 h-16 border-4 border-app-gold/30 border-t-app-gold rounded-full animate-spin"></div>
+                  <p className="text-sm tracking-widest opacity-70 animate-pulse">LOADING GALLERY</p>
                 </div>
               ) : (
-                <Gallery images={images} onDelete={handleDelete} />
+                <div className="container mx-auto">
+                  <Gallery images={images} onDelete={handleDelete} />
+                </div>
               )}
             </motion.div>
           )}
         </AnimatePresence>
       </main>
 
-      {/* Floating Action Button for Upload */}
-      <motion.button
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        onClick={() => setIsUploadOpen(true)}
-        className="fixed bottom-8 right-8 z-50 p-4 bg-white text-black rounded-full shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] transition-shadow"
-      >
-        <FaPlus size={24} />
-      </motion.button>
+      {/* Mobile-Optimized Bottom Navigation Bar */}
+      <nav className="fixed bottom-3 sm:bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-1 sm:gap-2 bg-gradient-to-r from-black/80 to-black/60 backdrop-blur-xl p-2 sm:p-3 rounded-2xl border border-[#d4af37]/30 shadow-[0_0_30px_rgba(212,175,55,0.3)] glow mobile-nav-bar">
+
+        {/* Book View Button */}
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={() => setView('book')}
+          className={`relative p-3 sm:p-4 rounded-xl transition-all duration-300 ${view === 'book'
+            ? 'text-black bg-gradient-to-r from-[#d4af37] to-[#f9d670] shadow-lg glow'
+            : 'text-[#d4af37]/60 hover:text-[#d4af37] hover:bg-white/10'
+            }`}
+        >
+          <FaBookOpen size={20} className="sm:w-6 sm:h-6" />
+          {view === 'book' && (
+            <motion.div
+              layoutId="active-dot"
+              className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-black rounded-full"
+            />
+          )}
+        </motion.button>
+
+        {/* Mobile-Optimized Upload Button */}
+        <motion.button
+          whileHover={{ scale: 1.1, translateY: -3, boxShadow: "0 0 25px rgba(212, 175, 55, 0.6)" }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => setIsUploadOpen(true)}
+          className="mx-1 sm:mx-2 p-3.5 sm:p-4 md:p-5 bg-gradient-to-r from-[#d4af37] to-[#f9d670] text-black rounded-full shadow-lg sm:shadow-xl border border-[#d4af37] hover:shadow-2xl floating flex items-center justify-center"
+        >
+          <FaPlus size={20} className="sm:w-6 sm:h-6 md:w-7 md:h-7 font-bold" />
+        </motion.button>
+
+        {/* Gallery View Button */}
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={() => setView('gallery')}
+          className={`relative p-3 sm:p-4 rounded-xl transition-all duration-300 ${view === 'gallery'
+            ? 'text-black bg-gradient-to-r from-[#d4af37] to-[#f9d670] shadow-lg glow'
+            : 'text-[#d4af37]/60 hover:text-[#d4af37] hover:bg-white/10'
+            }`}
+        >
+          <FaThLarge size={20} className="sm:w-6 sm:h-6" />
+          {view === 'gallery' && (
+            <motion.div
+              layoutId="active-dot"
+              className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-black rounded-full"
+            />
+          )}
+        </motion.button>
+
+      </nav>
 
       <UploadModal
         isOpen={isUploadOpen}
